@@ -10,7 +10,6 @@ export default async function handler(request, response) {
   } catch (error) {
     return response.status(500).json({ error });
   }
- 
-  const items = await client.sql`SELECT * FROM Items;`;
-  return response.status(200).json({items: items.rows});
+
+  return response.status(200).json({ message: "OK" });
 }
