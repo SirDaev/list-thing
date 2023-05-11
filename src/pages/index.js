@@ -1,9 +1,29 @@
 import { Inter } from 'next/font/google'
 import List from '../components/List'
+import { useEffect,useState } from 'react';
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
+  const [listItems,setListItems] = useState([]);
+
+  useEffect(() => {
+    const myAbortController = new AbortController();
+
+    fetch("/api/getItems", {
+      method: "GET"
+    })
+    .then(res => res.json())
+    .then(data => {
+      console.log("initial render");
+      console.log(data);
+      setListItems(data.items);
+    });
+
+    return () => {
+      myAbortController.abort();
+    };
+  },[]);
 
   function addListItem(event) {
     event.preventDefault();
@@ -21,13 +41,16 @@ export default function Home() {
       })
     )
     .then(res => res.json())
-    .then(data => console.log(data));
+    .then(data => {
+      console.log(data);
+      setListItems(data.items);
+    });
   }
 
   return (
     <main className={`flex min-h-screen flex-col items-center px-4 py-24 ${inter.className}`}>
       <h1 className="text-2xl font-bold mb-4">List Thing</h1>
-      <List />
+      <List items={listItems} />
       <form id="form" action="" onSubmit={addListItem}>
         <div>
           <label>
