@@ -10,14 +10,12 @@ export default function Home() {
   useEffect(() => {
     const myAbortController = new AbortController();
 
-    fetch("/api/getItems", {
+    fetch("/api/items", {
       method: "GET"
     })
     .then(res => res.json())
     .then(data => {
-      console.log("initial render");
-      console.log(data);
-      setListItems(data.items);
+      setListItems(data);
     });
 
     return () => {
@@ -28,7 +26,7 @@ export default function Home() {
   function addListItem(event) {
     event.preventDefault();
 
-    fetch("/api/addItem", {
+    fetch("/api/items", {
       method: "POST",
       body: JSON.stringify({
         name: event.target[0].value
@@ -36,14 +34,13 @@ export default function Home() {
     })
     .then(res => res.json())
     .then(() => 
-      fetch("/api/getItems", {
+      fetch("/api/items", {
         method: "GET"
       })
     )
     .then(res => res.json())
     .then(data => {
-      console.log(data);
-      setListItems(data.items);
+      setListItems(data);
     });
   }
 
