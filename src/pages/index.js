@@ -1,8 +1,6 @@
-import { Inter } from 'next/font/google'
+import MainEL from '../components/MainEL'
 import List from '../components/List'
 import { useEffect,useState } from 'react';
-
-const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
   const [listItems,setListItems] = useState([]);
@@ -45,7 +43,7 @@ export default function Home() {
   }
 
   return (
-    <main className={`flex min-h-screen flex-col items-center px-4 py-24 ${inter.className}`}>
+    <MainEL>
       <h1 className="text-2xl font-bold mb-4">List Thing</h1>
       <List items={listItems} />
       <form id="form" action="" onSubmit={addListItem}>
@@ -59,6 +57,6 @@ export default function Home() {
           <button type="submit" className="mt-2 mb-7 px-5 py-1 border-2">Submit</button>
         </div>
       </form>
-    </main>
+    </MainEL>
   )
 }
