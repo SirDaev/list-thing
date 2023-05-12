@@ -3,7 +3,7 @@ import Link from 'next/link';
 import MainEL from '../components/MainEL'
 import List from '../components/List'
 
-export default function Home() {
+export default function Manage() {
   const [listItems,setListItems] = useState([]);
 
   useEffect(() => {
@@ -45,20 +45,9 @@ export default function Home() {
 
   return (
     <MainEL>
-      <h1 className="text-2xl font-bold mb-4">List Thing</h1>
-      <List items={listItems} />
-      <form id="form" action="" onSubmit={addListItem}>
-        <div>
-          <label>
-            Add Item: 
-            <input type="text" placeholder="item name" className="px-3 py-1 ml-2 mt-2 border-2"/>
-          </label>
-        </div>
-        <div>
-          <button type="submit" className="mt-2 mb-7 px-5 py-1 border-2">Submit</button>
-        </div>
-      </form>
-      <Link href="/manage" className="mt-auto">Mange</Link>
+      <h1 className="text-2xl font-bold mb-4">Manage List Items</h1>
+      <List items={listItems} showAll showStatus />
+      <Link href="/" className="mt-auto">Home</Link>
     </MainEL>
   )
 }

@@ -1,15 +1,42 @@
 'use client';
-export default function List({items = []}) {
+
+export default function List({
+  items = [],
+  showAll = false,
+  showStatus = false
+}) {
 
   return (
     <ul className="flex flex-col space-y-4 w-full max-w-md">
       {items.map((item) => {
-        return (
-          <li key={item.id} className="text-md border-2 border-slate-500">
-            <button className="w-full text-left p-2">{`[${item.quantity}] ${item.name}`}</button>
-          </li>
-        )
+        if(showAll || (!showAll && item.active)) {
+          return (
+            <ListItem key={item.id} item={item} showStatus={showStatus} />
+          )
+        }
+
+        return null;
       })}
     </ul>
+  )
+}
+
+function ListItem({
+  item,
+  showStatus
+}) {
+
+  function extraClasses() {
+    if(showStatus) {
+      return item.active ? "border-r-[20px] border-r-green-600" : "border-r-[20px] border-r-neutral-500"
+    }
+
+    return "";
+  }
+
+  return (
+    <li className={`text-md border-2 border-slate-800 ${extraClasses()}`}>
+      <button className="w-full text-left p-2">{`[${item.quantity}] ${item.name}`}</button>
+    </li>
   )
 }
