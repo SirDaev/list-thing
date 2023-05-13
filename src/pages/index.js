@@ -36,7 +36,7 @@ export default function Home() {
     event.preventDefault();
 
     fetch("/api/items", {
-      method: "PUT",
+      method: "POST",
       body: JSON.stringify({
         name: event.target[0].value
       })
