@@ -5,14 +5,14 @@ export default async function handler(request, response) {
 
   switch (request.method) {
     case 'GET':
-      const items = await client.sql`SELECT * FROM Items;`;
+      const items = await client.sql`SELECT * FROM items ORDER BY id;`;
       response.status(200).json(items.rows)
       break
     case 'POST':
       try {
         const body = JSON.parse(request.body);
         const name = body.name;
-        await client.sql`INSERT INTO Items (Name) VALUES (${name});`;
+        await client.sql`INSERT INTO items (Name) VALUES (${name});`;
         response.status(200).json({message: `${name} added.`})
       } catch (error) {
         response.status(500).json({error})
@@ -20,6 +20,6 @@ export default async function handler(request, response) {
       break
     default:
       response.setHeader('Allow', ['GET','POST'])
-      response.status(405).end(`Method ${method} Not Allowed`)
+      response.status(405).end(`Method ${request.method} Not Allowed`)
   }
 }

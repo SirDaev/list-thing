@@ -1,6 +1,7 @@
 'use client';
 
 export default function List({
+  edit,
   items = [],
   showAll = false,
   showStatus = false
@@ -11,7 +12,7 @@ export default function List({
       {items.map((item) => {
         if(showAll || (!showAll && item.active)) {
           return (
-            <ListItem key={item.id} item={item} showStatus={showStatus} />
+            <ListItem key={item.id} item={item} showStatus={showStatus} edit={edit} />
           )
         }
 
@@ -22,6 +23,7 @@ export default function List({
 }
 
 function ListItem({
+  edit,
   item,
   showStatus
 }) {
@@ -35,7 +37,10 @@ function ListItem({
   }
 
   return (
-    <li className={`text-md border-2 border-slate-800 ${extraClasses()}`}>
+    <li
+      className={`text-md border-2 border-slate-800 ${extraClasses()}`}
+      onClick={() => edit(item.id)}
+    >
       <button className="w-full text-left p-2">{`[${item.quantity}] ${item.name}`}</button>
     </li>
   )
