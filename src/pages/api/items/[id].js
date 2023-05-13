@@ -13,7 +13,7 @@ export default async function handler(request, response) {
       const body = JSON.parse(request.body);
       const name = body.name;
       await client.sql`UPDATE items SET name=${name} WHERE id=${id};`;
-      response.status(200).json({message: `Item ${id} deleted.`})
+      response.status(200).json({message: `Item ${id} updated.`})
       break
     case 'DELETE':
      await client.sql`DELETE FROM items WHERE id=${id};`;
